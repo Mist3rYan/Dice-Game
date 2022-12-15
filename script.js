@@ -4,7 +4,7 @@ $(() => {
     var activePlayer1 = true;
     $('.roll').hide()
     $('.hold').hide()
-    //$('.message').hide()
+    $('.message').hide()
 
     //Reinitialisation de la partie
     $('.newGame').click(function(){
