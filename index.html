@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice Game</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main">
+        <div class="newGame">
+            <img src="images/new.png"/>NEW GAME
+        </div>
+        <div class="scoreBoard">
+            <div class="player1"><span class="active1">PLAYER 1</span>
+                <div class="scoreGlobal1">0</div>
+            </div>
+            <img class="dice" src="images/0.png"/>
+            <div class="player2"><span class="active2">PLAYER 2</span>
+                <div class="scoreGlobal2">0</div>
+            </div>
+        </div>
+        <div class="info">
+            <div class="currentScorePlayer1">
+                CURRENT
+                <div class="scoreRound1">
+                    0
+                </div>
+            </div>
+            <div class="menu">
+                <div class="roll">
+                    <img src="images/reset.png"/>DICE
+                </div>
+                <div class="hold">
+                    <img src="images/save.png"/>HOLD
+                </div>
+                <div class="message">
+                    MESSAGE
+                </div>
+            </div>
+            <div class="currentScorePlayer2">
+                CURRENT
+                <div class="scoreRound2">
+                    0
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="library/jquery-3.6.1.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
