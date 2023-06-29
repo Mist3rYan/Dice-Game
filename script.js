@@ -1,185 +1,150 @@
-$(() => {
+document.addEventListener('DOMContentLoaded', () => {
 
-    // initialisattion
-    var activePlayer1 = true;
-    $('.roll').hide()
-    $('.hold').hide()
-    $('.message').hide()
+    // Initialisation
+    let activePlayer1 = true;
+    const rollButton = document.querySelector('.roll');
+    const holdButton = document.querySelector('.hold');
+    const newGameButton = document.querySelector('.newGame');
+    const messageElement = document.querySelector('.message');
+    const scoreRound1Element = document.querySelector('.scoreRound1');
+    const scoreRound2Element = document.querySelector('.scoreRound2');
+    const scoreGlobal1Element = document.querySelector('.scoreGlobal1');
+    const scoreGlobal2Element = document.querySelector('.scoreGlobal2');
+    const active1Element = document.querySelector('.active1');
+    const active2Element = document.querySelector('.active2');
+    const diceElement = document.querySelector('.dice');
 
-    //Reinitialisation de la partie
-    $('.newGame').click(function(){
-        reset()
-    });
-    //fonction qui reinitialise
-    function reset(){
-        // on remet a zero tous les scores
-        $('.scoreRound1').text('0')
-        $('.scoreRound2').text('0')
-        $('.scoreGlobal1').text('0')
-        $('.scoreGlobal2').text('0')
-        $('.message').text("Vous avez fait 1 !")
-        //on affiche ou cache les div de commandes
-        $('.message').hide()
-        $('.roll').show()
-        $('.hold').show()
-        //on choisi un joueur pour demarrer
-        choicePlayerStart()
+    rollButton.style.display = 'none';
+    holdButton.style.display = 'none';
+    messageElement.style.display = 'none';
+
+    newGameButton.addEventListener('click', reset);
+
+    function reset() {
+        scoreRound1Element.textContent = '0';
+        scoreRound2Element.textContent = '0';
+        scoreGlobal1Element.textContent = '0';
+        scoreGlobal2Element.textContent = '0';
+        messageElement.textContent = "Vous avez fait 1 !";
+        messageElement.style.display = 'none';
+        rollButton.style.display = 'block';
+        holdButton.style.display = 'block';
+        choicePlayerStart();
     }
 
-    //Choix joueur qui demarre la partie
-    function choicePlayerStart(){
-        //choix ente 1 et 2
-        let number = Math.floor(Math.random() * 2)
-        // si nombre egal 1 alors joueur 1 actif
-        if (number===1){
-            $('.active1').css({ 'color': 'red'})
-            $('.active2').css({ 'color': 'black'})
-            activePlayer1 = true
-        }else{// sinon joueur 1 inactif
-            $('.active1').css({ 'color': 'black'})
-            $('.active2').css({ 'color': 'red'})
-            activePlayer1 = false
+    function choicePlayerStart() {
+        const number = Math.floor(Math.random() * 2);
+        if (number === 1) {
+            active1Element.style.color = 'red';
+            active2Element.style.color = 'black';
+            activePlayer1 = true;
+        } else {
+            active1Element.style.color = 'black';
+            active2Element.style.color = 'red';
+            activePlayer1 = false;
         }
     }
 
-    //Change de joueur actif
-    function changePlayer(){
-        // si joueur 1 actif on change de joueur
-        if (activePlayer1 === true){
-            $('.active1').css({ 'color': 'black'})
-            $('.active2').css({ 'color': 'red'})
-            activePlayer1 = false
-        }else{// si joueur 2 actif on change de joueur
-            $('.active1').css({ 'color': 'red'})
-            $('.active2').css({ 'color': 'black'})
-            activePlayer1 = true
+    function changePlayer() {
+        if (activePlayer1) {
+            active1Element.style.color = 'black';
+            active2Element.style.color = 'red';
+            activePlayer1 = false;
+        } else {
+            active1Element.style.color = 'red';
+            active2Element.style.color = 'black';
+            activePlayer1 = true;
         }
     }
 
-    //fonction qui sauve le score courant dans le global avec changementd de joueur
-    $('.hold').click(function(){
-        saveScore()
-    });
-    //save score round dans score total et verifie si victoire
-    function saveScore(){
-        if (activePlayer1){
-            // on recupere le score courant
-            let currentScore = $(".scoreRound1").text()
-            // on le transforme en int
-            currentScore = parseInt(currentScore)
-            // on recupere le score global
-            let scoreGlobal = $(".scoreGlobal1").text()
-            // on le transforme en int
-            scoreGlobal = parseInt(scoreGlobal)
-            //on ajoute le score global au score courant
-            scoreGlobal = scoreGlobal+currentScore
-            // on affiche dans la class scoreGlobal1
-            $(".scoreGlobal1").text(scoreGlobal)
-            // on remet la classe scoreRound1 a 0
-            $('.scoreRound1').text('0')
-            //si score superieure a 99 victoire du joueur 1
-            if(scoreGlobal>99){
-                // affichage d'un popup pour afficher le gagant
-                $('.message').text("VICTOIRE DU JOUEUR 1")
-                $('.message').show()
-                //on cache les div pour empecher de jouer apres une victoire
-                $('.roll').hide()
-                $('.hold').hide()
+    holdButton.addEventListener('click', saveScore);
+
+    function saveScore() {
+        if (activePlayer1) {
+            let currentScore = parseInt(scoreRound1Element.textContent);
+            let scoreGlobal = parseInt(scoreGlobal1Element.textContent);
+            scoreGlobal += currentScore;
+            scoreGlobal1Element.textContent = scoreGlobal;
+            scoreRound1Element.textContent = '0';
+            if (scoreGlobal > 99) {
+                messageElement.textContent = "VICTOIRE DU JOUEUR 1";
+                messageElement.style.display = 'block';
+                rollButton.style.display = 'none';
+                holdButton.style.display = 'none';
             }
-            changePlayer()
-        }
-        else{
-            // on recupere le score courant
-            let currentScore = $(".scoreRound2").text()
-            // on le transforme en int
-            currentScore = parseInt(currentScore)
-            /// on recupere le score global
-            let scoreGlobal = $(".scoreGlobal2").text()
-            // on le transforme en int
-            scoreGlobal = parseInt(scoreGlobal)
-            //on ajoute le score global au score courant
-            scoreGlobal = scoreGlobal+currentScore
-             // on affiche dans la class scoreGlobal2
-            $(".scoreGlobal2").text(scoreGlobal)
-            // on remet la classe scoreRound2 a 0
-            $('.scoreRound2').text('0')
-            //si score superieure a 99 victoire du joueur 2
-            if(scoreGlobal>99){
-                // affichage d'un popup pour afficher le gagant
-                $('.message').text("VICTOIRE DU JOUEUR 2")
-                $('.message').show()
-                //on cache les div pour empecher de jouer apres une victoire
-                $('.roll').hide()
-                $('.hold').hide()
+            changePlayer();
+        } else {
+            let currentScore = parseInt(scoreRound2Element.textContent);
+            let scoreGlobal = parseInt(scoreGlobal2Element.textContent);
+            scoreGlobal += currentScore;
+            scoreGlobal2Element.textContent = scoreGlobal;
+            scoreRound2Element.textContent = '0';
+            if (scoreGlobal > 99) {
+                messageElement.textContent = "VICTOIRE DU JOUEUR 2";
+                messageElement.style.display = 'block';
+                rollButton.style.display = 'none';
+                holdButton.style.display = 'none';
             }
-            changePlayer()
+            changePlayer();
         }
     }
 
-    $('.roll').click(function(){
-        rollDice()
-    });
+    rollButton.addEventListener('click', rollDice);
 
-    //lorsque le dé égale un on masque des div avec timer
-    function diceOne(){
-        $('.roll').hide()
-        $('.hold').hide()
-        $('.message').show()
-        setTimeout(function(){
-            $('.roll').show()
-            $('.message').hide()
-            $('.hold').show()
-        },2000);
+    function diceOne() {
+        rollButton.style.display = 'none';
+        holdButton.style.display = 'none';
+        messageElement.style.display = 'block';
+        setTimeout(() => {
+            rollButton.style.display = 'block';
+            holdButton.style.display = 'block';
+            messageElement.style.display = 'none';
+        }, 2000);
     }
-    //Lancé du dé
-    function rollDice(){
-        let dice = Math.floor(Math.random() * 6)+1
-        console.log("VALEUR DU DE "+dice)
+
+    function rollDice() {
+        const dice = Math.floor(Math.random() * 6) + 1;
+        console.log("VALEUR DU DE " + dice);
         switch (dice) {
             case 1:
-                $(".dice").attr("src", "images/1.png");
+                diceElement.src = "images/1.png";
                 break;
             case 2:
-                $(".dice").attr("src", "images/2.png");
+                diceElement.src = "images/2.png";
                 break;
             case 3:
-                $(".dice").attr("src", "images/3.png");
+                diceElement.src = "images/3.png";
                 break;
             case 4:
-                $(".dice").attr("src", "images/4.png");
+                diceElement.src = "images/4.png";
                 break;
             case 5:
-                $(".dice").attr("src", "images/5.png");
+                diceElement.src = "images/5.png";
                 break;
             case 6:
-                $(".dice").attr("src", "images/6.png");
+                diceElement.src = "images/6.png";
                 break;
             default:
-          }
-        if (activePlayer1){
-            if (dice===1){
-                diceOne()
-                changePlayer()
-                $(".scoreRound1").text("0")
-            }else{
-                let currentScore = $(".scoreRound1").text()
-                currentScore = parseInt(currentScore)
-                currentScore += dice
-                $(".scoreRound1").text(currentScore)
-            }
-
         }
-        else{
-            if(dice===1){
-                diceOne()
-                changePlayer()
-                $(".scoreRound2").text("0")
+        if (activePlayer1) {
+            if (dice === 1) {
+                diceOne();
+                changePlayer();
+                scoreRound1Element.textContent = "0";
+            } else {
+                let currentScore = parseInt(scoreRound1Element.textContent);
+                currentScore += dice;
+                scoreRound1Element.textContent = currentScore;
             }
-            else{
-                let currentScore = $(".scoreRound2").text()
-                currentScore = parseInt(currentScore)
-                currentScore += dice
-                $(".scoreRound2").text(currentScore)
+        } else {
+            if (dice === 1) {
+                diceOne();
+                changePlayer();
+                scoreRound2Element.textContent = "0";
+            } else {
+                let currentScore = parseInt(scoreRound2Element.textContent);
+                currentScore += dice;
+                scoreRound2Element.textContent = currentScore;
             }
         }
     }
