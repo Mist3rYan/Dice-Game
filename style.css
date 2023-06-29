@@ -1,89 +1,147 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
 
-*{
-    user-select: none;
+* {
+  user-select: none;
 }
 
-body{
+body {
     text-align: center;
-    font-family: 'Lato', cursive, arial;
+    font-family: "Lato", cursive, arial;
     width: 100%;
     height: 100%;
     background: url("images/background.jpg");
     background-size: cover;
-}
+  }
 
-img{
-    width: 2.5vw;
-    margin-right: 10px;
-}
-
-.main{
+.main {
     cursor: pointer;
     border-top: 1px rgba(66, 0, 0, 0.561) solid;
     border-left: 1px rgba(66, 0, 0, 0.561) solid;
-    background: rgba(240, 248, 255,0.8);
-    box-shadow:  0 10px 15px black;
+    background: rgba(240, 248, 255, 0.8);
+    box-shadow: 0 10px 15px black;
     margin: auto;
     margin-top: 50px;
     width: 70vw;
+    min-width: 298px;
     height: 80vh;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+  }
 
-}
+  .dice {
+    width: 100px;
+    height: 100px;
+  }
+  .player1,
+  .player2 {
+    font-size: 1.5em;
+  }
 
-.newGame{
+  img {
+    width: 2.5vw;
+    margin-right: 10px;
+  }
+
+  .newGame {
+    display: flex;
+    font-size: 1.2em;
+    justify-content: center;
+    align-items: center;
+  }
+  .scoreBoard {
+    display: flex;
+    display: row;
+    justify-content: space-around;
+  }
+  .scoreGlobal1,
+  .scoreGlobal2 {
+    color: red;
+    font-size: 2em;
+  }
+
+  .info {
+    display: flex;
+    display: row;
+    justify-content: space-around;
+  }
+  
+  .currentScorePlayer1,
+  .currentScorePlayer2 {
+    padding: 15px;
+    background: rgba(255, 0, 0, 1);
+    font-size: 1em;
+  }
+  .roll,
+  .message,
+  .hold {
+    padding: 10px;
+    font-size: 1.2 em;
+    display: flex;
+    align-items: center;
+  }
+
+  .scoreRound1,
+  .scoreRound2 {
+    color: aliceblue;
+    margin-top: 25px;
+  }
+
+@media only screen and (min-width: 985px) {
+  img {
+    width: 2.5vw;
+    margin-right: 10px;
+  }
+
+  .newGame {
     display: flex;
     font-size: 2.2em;
     justify-content: center;
     align-items: center;
-}
+  }
 
-.scoreBoard{
+  .scoreBoard {
     display: flex;
     display: row;
     justify-content: space-around;
-}
+  }
 
-.player1,.player2{
+  .player1,
+  .player2 {
     font-size: 3em;
-}
-.scoreGlobal1, .scoreGlobal2{
-    color: red;
+  }
+  .scoreGlobal1,
+  .scoreGlobal2 {
     font-size: 4em;
-}
-.dice{
+  }
+  .dice {
     width: 200px;
     height: 200px;
-}
-.info{
-    display: flex;
-    display: row;
-    justify-content: space-around;
-}
+  }
 
-.currentScorePlayer1, .currentScorePlayer2{
-    padding: 15px;
-    background: rgba(255, 0, 0, 1);
+  .currentScorePlayer1,
+  .currentScorePlayer2 {
     font-size: 2em;
-}
+  }
 
-.menu{
+  .menu {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-}
+  }
 
-.roll, .message,  .hold{
+  .roll,
+  .message,
+  .hold {
     padding: 10px;
     font-size: 2em;
     display: flex;
     align-items: center;
-}
+  }
 
-.scoreRound1, .scoreRound2{
+  .scoreRound1,
+  .scoreRound2 {
     color: aliceblue;
     margin-top: 25px;
+  }
 }
